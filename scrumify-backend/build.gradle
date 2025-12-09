@@ -1,0 +1,108 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.7'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.flywaydb.flyway' version '9.22.3'
+	id 'org.openapi.generator' version '7.0.1'
+}
+
+group = 'com.scrumify'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-database-postgresql'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'io.swagger.core.v3:swagger-annotations:2.2.15'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+	implementation 'io.swagger.core.v3:swagger-models:2.2.15'
+	implementation 'org.mapstruct:mapstruct:1.5.0.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.0.Final'
+}
+
+
+ext {
+	databaseName = 'scrumify'
+	databaseUsername = 'admin'
+	databasePassword = 'secret'
+	databaseOwnerUsername = 'admin'
+	databaseOwnerPassword = 'secret'
+	databaseUrl = "jdbc:postgresql://localhost:18343/${databaseName}"
+	databaseApplRole = 'rl_scfy_app'
+}
+
+flyway {
+	url = "${databaseUrl}"
+	user = "${databaseUsername}"
+	password = "${databasePassword}"
+	locations = ['/db/migration',
+				 '/db/setup',
+				 '/db/testdata']
+	schemas = ['scrumify']
+	cleanDisabled = false
+	placeholders = ['db.name' : "${databaseName}", 'db.role.application': "${databaseApplRole}"]
+}
+
+flywayInfo.dependsOn classes
+flywayMigrate.dependsOn classes
+
+openApiGenerate {
+	generatorName = 'spring'
+	inputSpec = "$projectDir/openapi.yaml".toString()
+	outputDir = "$projectDir/generated".toString()
+	apiPackage = 'com.scrumify.generated.api'
+	modelPackage = 'com.scrumify.generated.model'
+	invokerPackage = 'com.scrumify.generated.invoker'
+	skipOverwrite = false
+	configOptions.set([
+			dateLibrary: "java8",
+			useJakartaEe: "true",
+			interfaceOnly: "true",
+			useBeanValidation: "true"
+	])
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs += 'generated/src/main/java'
+		}
+	}
+}
+
+tasks.named('compileJava') {
+	dependsOn tasks.named('openApiGenerate')
+}
+
+tasks.register('dbColdstart') {
+	dependsOn flywayClean, flywayMigrate
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

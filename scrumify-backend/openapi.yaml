@@ -1,0 +1,218 @@
+openapi: 3.0.4
+info:
+  title: Impostor API
+  version: 1.0.0
+servers:
+  - url: /api/
+
+paths:
+  /user/registration:
+    post:
+      summary: Register a user
+      description: Create a new app_user
+      operationId: registerUser
+      tags:
+        - User
+      requestBody:
+        description: User registration data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDTO'
+      responses:
+        '201':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUserDTO'
+        '400':
+          description: Invalid registration data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user/login:
+    post:
+      summary: login a user
+      description: login an existing app_user
+      operationId: loginUser
+      tags:
+        - User
+      requestBody:
+        description: User login data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDTO'
+      responses:
+        '201':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUserDTO'
+        '400':
+          description: Invalid registration data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /user/{phoneNumber}:
+    get:
+      summary: Retrieve a user
+      description: Get a specific user by phone number
+      operationId: getAppUserByPhoneNumber
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/phoneNumberParameter'
+      responses:
+        '200':
+          description: Game successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUserDTO'
+        '404':
+          description: Game not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /chat/create:
+    post:
+      summary: Create a chat
+      description: Create a new chat
+      operationId: createChat
+      tags:
+        - Chat
+      requestBody:
+        description: Chat creation data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDTO'
+      responses:
+        '201':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUserDTO'
+        '400':
+          description: Invalid registration data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+
+components:
+  parameters:
+    phoneNumberParameter:
+      name: phoneNumber
+      required: true
+      in: path
+      schema:
+        type: string
+        description: The phone number of the user
+
+  schemas:
+    AppUserDTO:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: "Telefonnummer des Benutzers"
+        username:
+          type: string
+          description: "Benutzername"
+        createdAt:
+          type: string
+          format: date-time
+          description: "Erstellungszeitpunkt des Benutzers"
+      required:
+        - userId
+        - phoneNumber
+        - username
+        - createdAt
+
+    CreateUserDTO:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: "Telefonnummer des Benutzers"
+        password:
+          type: string
+          description: "Passwort des Benutzers"
+      required:
+        - phoneNumber
+        - password
+
+    LoginUserDTO:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: "Telefonnummer des Benutzers"
+        username:
+          type: string
+          description: "Benutzername"
+        password:
+          type: string
+          description: "Passwort des Benutzers"
+      required:
+        - phoneNumber
+        - username
+        - password
+
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
