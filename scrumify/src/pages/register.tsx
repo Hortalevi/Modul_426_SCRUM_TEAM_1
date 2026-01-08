@@ -48,7 +48,7 @@ function Register() {
       return;
     }
 
-    const url = "https://example.com/api/register";
+    const url = "http://localhost:5201/api/Register";
 
     try {
       const requestBody: RegisterRequest = {
