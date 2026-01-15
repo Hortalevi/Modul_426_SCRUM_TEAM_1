@@ -1,6 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+
+/**
+ * Login-Page — helles, modernes Layout.
+ * Jede wichtige Container-Klasse erhält die suffix-Klasse `liquid-login` damit Styles komponentenspezifisch angesprochen werden können.
+ */
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -35,7 +40,7 @@ function Login() {
         setError(err.message);
       } else {
         setError(
-          "Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut."
+            "Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut."
         );
       }
     } finally {
@@ -50,32 +55,57 @@ function Login() {
   };
 
   return (
-    <div className="register-container">
-      <h1>Login</h1>
-      <div className="register-form">
-        <input
-          type="text"
-          placeholder="Benutzername oder E-Mail"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <input
-          type="password"
-          placeholder="Passwort"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <button onClick={handleSubmit} disabled={loading}>
-          {loading ? "Laden..." : "Anmelden"}
-        </button>
+      <div className="auth-page liquid-login">
+        <div className="auth-card liquid-login" role="region" aria-label="Login">
+          <h1 className="auth-title liquid-login">Login</h1>
+          <p className="auth-note liquid-login">Melde dich mit deinem Benutzernamen oder E‑Mail an.</p>
+
+          <div className="auth-form liquid-login">
+            <div className="form-group liquid-login">
+              <input
+                  className="auth-input liquid-login"
+                  type="text"
+                  placeholder="Benutzername oder E-Mail"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  aria-label="Benutzername oder E-Mail"
+              />
+            </div>
+
+            <div className="form-group liquid-login">
+              <input
+                  className="auth-input liquid-login"
+                  type="password"
+                  placeholder="Passwort"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  aria-label="Passwort"
+              />
+            </div>
+
+            <div className="button-row liquid-login">
+              <button
+                  className="auth-button liquid-login"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  aria-busy={loading}
+              >
+                {loading ? "Laden..." : "Anmelden"}
+              </button>
+            </div>
+          </div>
+
+          {error && <p className="error liquid-login" role="alert">{error}</p>}
+
+          <div className="button-row liquid-login" style={{ marginTop: 12 }}>
+            <p className="register-link liquid-login">
+              Noch kein Konto? <Link to="/register">Jetzt registrieren</Link>
+            </p>
+          </div>
+        </div>
       </div>
-      {error && <p className="error">{error}</p>}
-      <p>
-        Noch kein Konto? <Link to="/register">Jetzt registrieren</Link>
-      </p>
-    </div>
   );
 }
 

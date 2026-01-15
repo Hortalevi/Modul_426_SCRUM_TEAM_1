@@ -1,55 +1,303 @@
-.register-container {
-  width: 100%;
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 30px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
+/* Liquid — Helles, modernes UI (komponenten-spezifisch)
+   Verwendung:
+   - import './styles/liquid.css' z. B. in src/index.tsx oder in jeder Page-Component falls gewünscht.
+   - Enthält generische UI-Komponenten und spezielle Feinheiten für:
+     .liquid-dashboard, .liquid-home, .liquid-login, .liquid-register
+*/
 
-.register-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.register-form input {
-  padding: 10px;
+/* --- Theme variables --- */
+:root{
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --muted: #6b7280;
+  --text: #0f172a;
+  --accent: #2563eb;        /* Blau */
+  --accent-600: #1e40af;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --subtle: #eef2ff;
+  --radius: 12px;
+  --card-padding: 18px;
+  --shadow-sm: 0 1px 2px rgba(16,24,40,0.04);
+  --shadow-md: 0 6px 18px rgba(16,24,40,0.08);
+  --gap: 12px;
   font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
 }
 
-.register-form button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #4caf50;
-  color: white;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+/* --- Global reset / baseline --- */
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  font-size: 15px;
+}
+
+/* Link reset */
+a{ color:var(--accent); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+/* --- Generic container / card --- */
+.card, .home-card-dash, .auth-card, .auth-card-register {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: var(--card-padding);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* Make sure component-specific suffixes are supported by author request */
+.home-card-dash.liquid-dashboard,
+.auth-card.liquid-login,
+.auth-card-register.liquid-register{
+  /* slight visual tweak per component root if needed */
+}
+
+/* Small utilities */
+.container-row{ display:flex; gap:var(--gap); align-items:center; }
+.row-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:12px; }
+
+/* --- Header / Homepage --- */
+.homepage-wrapper.liquid-home {
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+.homepage-header.liquid-home{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:16px 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+  border-bottom: 1px solid rgba(15,23,42,0.03);
+  backdrop-filter: blur(4px);
+}
+
+.homepage-logo.liquid-home{
+  font-weight:700;
+  color:var(--accent-600);
+  letter-spacing:0.2px;
+  font-size:1.05rem;
+}
+
+.homepage-nav.liquid-home { display:flex; gap:12px; align-items:center; }
+.nav-link { color:var(--muted); padding:8px 12px; border-radius:8px; }
+.nav-link-primary { color:white; background:var(--accent); padding:8px 12px; border-radius:8px; }
+.nav-link:hover{ background: rgba(37,99,235,0.06); color:var(--accent-600); }
+
+/* Hero */
+.homepage-main.liquid-home{ flex:1; display:flex; align-items:center; justify-content:center; padding:36px 24px; }
+.homepage-hero.liquid-home{
+  width:100%;
+  max-width:980px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  align-items:flex-start;
+  padding:28px;
+  border-radius:12px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(15,23,42,0.04);
+}
+.homepage-hero-title.liquid-home{ margin:0; font-size:1.8rem; color:var(--text); }
+.homepage-hero-text.liquid-home{ margin:0; color:var(--muted); }
+
+/* CTA Buttons */
+.homepage-cta-btn { display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border-radius:10px; font-weight:600; }
+.cta-btn-primary { background:var(--accent); color:white; }
+.cta-btn-primary:hover { background:var(--accent-600); }
+.cta-btn-secondary { background:transparent; color:var(--accent-600); border:1px solid rgba(37,99,235,0.08); }
+
+/* Footer */
+.homepage-footer{ padding:18px 24px; text-align:center; color:var(--muted); font-size:0.95rem; }
+
+/* --- Auth pages (login/register) --- */
+.auth-page.liquid-login,
+.auth-page-register.liquid-register{
+  min-height: calc(100vh - 64px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+}
+
+.auth-card.liquid-login,
+.auth-card-register.liquid-register{
+  width:100%;
+  max-width:420px;
+  padding:24px;
+  border-radius:14px;
+}
+
+.auth-title.liquid-login,
+.auth-title-register.liquid-register{
+  margin:0 0 8px 0;
+  font-size:1.25rem;
+  color:var(--text);
+}
+
+.auth-note, .auth-note-register{ margin:0 0 16px 0; color:var(--muted); font-size:0.95rem; }
+
+/* Inputs */
+.auth-input, .auth-input-register{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(15,23,42,0.06);
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  color:var(--text);
+  outline:none;
+  font-size:0.95rem;
+}
+.auth-input:focus, .auth-input-register:focus,
+textarea:focus {
+  box-shadow: 0 4px 14px rgba(37,99,235,0.08);
+  border-color: var(--accent);
+}
+
+/* Buttons */
+.auth-button, .auth-button-register {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:10px;
+  background:var(--accent);
+  color:white;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  cursor:pointer;
+  font-weight:600;
+}
+.auth-button[disabled], .auth-button-register[disabled]{
+  opacity:0.6; cursor:not-allowed;
+}
+.btn-outline{
+  background:transparent;
+  color:var(--accent-600);
+  border:1px solid rgba(37,99,235,0.12);
+}
+.btn-danger{
+  background:var(--danger);
+  color:white;
+}
+.meta-button{ font-size:0.9rem; padding:8px 10px; }
+
+/* Form groups + helpers */
+.form-group, .form-group-register, .form-row { margin-bottom:12px; display:flex; flex-direction:column; gap:8px; }
+.error, .error-register { color:var(--danger); margin-top:12px; font-weight:600; }
+.success-register { color:var(--success); margin-top:12px; font-weight:600; }
+
+/* --- Dashboard specific --- */
+.home-card-dash.liquid-dashboard{
+  width:100%;
+  min-height: 100%;
+
+  padding:22px;
+  border-radius:14px;
+}
+.dashboard-root{
+    min-height:100vh;
+    width: 100vw;
+  padding: 10px;
+  display: flex;
+justify-content: center}
+.has-dashboard-header{ padding-top: 6px; } /* small shim for header layout */
+
+.dashboard-header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:8px; }
+.dashboard-header-left{ display:flex; align-items:center; gap:8px; }
+.team-badge{
+  background: linear-gradient(90deg, rgba(37,99,235,0.08), rgba(37,99,235,0.04));
+  color:var(--accent-600);
+  padding:8px 12px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:0.95rem;
+}
+.team-selector select.team-select{
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid rgba(15,23,42,0.06);
+  background:white;
 }
 
-.register-form button:hover:not(:disabled) {
-  background-color: #45a049;
+/* top actions group */
+.top-actions{ display:flex; gap:10px; align-items:center; }
+
+/* Project grid */
+.project-section{ margin-top:18px; }
+.project-grid{
+  display:flex;
+flex-direction: column;
+  margin-top:8px;
+}
+.project-item{
+  background: linear-gradient(180deg,#fff,#fcfeff);
+  border-radius:12px;
+  padding:14px;
+  border:1px solid rgba(15,23,42,0.04);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 10px;
+}
+.project-item h3{ margin:0 0 8px 0; font-size:1rem; }
+.project-item p{ margin:0 0 12px 0; color:var(--muted); font-size:0.95rem; }
+.project-meta{ display:flex; justify-content:space-between; align-items:center; gap:12px; color:var(--muted); font-size:0.9rem; }
+
+/* Empty state */
+.empty-state{
+  padding:18px;
+  border-radius:10px;
+  background:linear-gradient(180deg,#ffffff,#fbfdff);
+  border:1px dashed rgba(15,23,42,0.04);
+  color:var(--muted);
+  text-align:center;
 }
 
-.register-form button:disabled {
-  background-color: #888;
-  cursor: not-allowed;
+/* Modal */
+.modal{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:80;
+  padding:20px;
+  /* simple translucent backdrop */
+}
+.modal::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(12,18,30,0.36);
+  backdrop-filter: blur(2px);
+  z-index:-1;
+}
+.modal-content{
+  width:100%;
+  max-width:520px;
+  background:var(--surface);
+  border-radius:12px;
+  padding:20px;
+  box-shadow: 0 12px 36px rgba(2,6,23,0.18);
+  border:1px solid rgba(15,23,42,0.06);
 }
 
-.error {
-  color: red;
-  margin-top: 10px;
-}
-
-.success {
-  color: green;
-  margin-top: 10px;
+/* small responsive tweaks */
+@media (max-width:720px){
+  .homepage-hero { padding:18px; }
+  .home-card-dash.liquid-dashboard{ margin:12px; padding:16px; }
+  .project-grid{ grid-template-columns: 1fr; }
+  .dashboard-header{ flex-direction:column; align-items:flex-start; gap:12px; }
 }
