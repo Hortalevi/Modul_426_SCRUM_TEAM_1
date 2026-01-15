@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Matteo Cipriani\\Documents\\0020_TBZ\\0020-426_Scrum\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\ScrumifyApi.csproj": {}
+    "C:\\workspace\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\ScrumifyApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Matteo Cipriani\\Documents\\0020_TBZ\\0020-426_Scrum\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\ScrumifyApi.csproj": {
+    "C:\\workspace\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\ScrumifyApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Matteo Cipriani\\Documents\\0020_TBZ\\0020-426_Scrum\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\ScrumifyApi.csproj",
+        "projectUniqueName": "C:\\workspace\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\ScrumifyApi.csproj",
         "projectName": "ScrumifyApi",
-        "projectPath": "C:\\Users\\Matteo Cipriani\\Documents\\0020_TBZ\\0020-426_Scrum\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\ScrumifyApi.csproj",
-        "packagesPath": "C:\\Users\\Matteo Cipriani\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Matteo Cipriani\\Documents\\0020_TBZ\\0020-426_Scrum\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\obj\\",
+        "projectPath": "C:\\workspace\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\ScrumifyApi.csproj",
+        "packagesPath": "C:\\Users\\krisf\\.nuget\\packages\\",
+        "outputPath": "C:\\workspace\\Modul_426_SCRUM_TEAM_1\\ScrumifyApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Matteo Cipriani\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\krisf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,25 +51,35 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
+            "Azure.Identity": {
               "target": "Package",
-              "version": "[10.0.1, )"
+              "version": "[1.13.1, )"
+            },
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[5.2.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[10.0.1, )"
+              "version": "[10.0.2, )"
             },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
+            "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
-              "version": "[10.0.1, )"
+              "version": "[10.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[10.0.1, )"
+              "version": "[10.0.0, )"
+            },
+            "Microsoft.IdentityModel.JsonWebTokens": {
+              "target": "Package",
+              "version": "[8.2.1, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -70,7 +87,11 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[10.0.1, )"
+              "version": "[6.5.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.2.1, )"
             }
           },
           "imports": [
@@ -92,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

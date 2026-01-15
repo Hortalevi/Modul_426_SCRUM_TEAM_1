@@ -2,10 +2,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Home from "./pages/home";
+import Dashboard from "./pages/Dashboard"; 
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/Dashboard" element={<Dashboard />} /> 
           <Route
             path="/"
             element={
@@ -23,7 +24,7 @@ function App() {
             }
           />
         </Routes>
-      </AuthProvider>
+        </AuthProvider>
     </BrowserRouter>
   );
 }
