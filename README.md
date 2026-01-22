@@ -1,2 +1,1 @@
-![sösli](soesli.png)
-
+![sösli](./soesli.png)
