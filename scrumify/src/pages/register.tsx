@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface RegisterRequest {
   firstName: string;
@@ -13,6 +14,11 @@ interface ApiErrorResponse {
   errors?: { [key: string]: string[] };
   title?: string;
 }
+
+/**
+ * Registration-Page — moderner, heller Look.
+ * Wichtige Container-Klassen erhalten `liquid-register` als Suffix, z. B. `.auth-page-register.liquid-register`.
+ */
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -77,7 +83,7 @@ function Register() {
           if (data.errors) {
             const errorMessages = Object.values(data.errors).flat().join(", ");
             errorMessage =
-              errorMessages || data.message || data.title || errorMessage;
+                errorMessages || data.message || data.title || errorMessage;
           } else if (data.message) {
             errorMessage = data.message;
           } else if (data.title) {
@@ -115,51 +121,103 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
-      <h1>Register</h1>
-      <div className="register-form">
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <button onClick={handleSubmit} disabled={loading}>
-          {loading ? "Loading..." : "Create Account"}
-        </button>
+      <div className="auth-page-register liquid-register">
+        <div className="auth-card-register liquid-register" role="region" aria-label="Register">
+          <h1 className="auth-title-register liquid-register">Register</h1>
+          <p className="auth-note-register liquid-register">
+            Erstelle dein Konto — es ist schnell und einfach.
+          </p>
+
+          <div className="auth-form-register liquid-register">
+            <div className="form-group-register liquid-register">
+              <input
+                  className="auth-input-register liquid-register"
+                  type="text"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  aria-label="First Name"
+              />
+            </div>
+
+            <div className="form-group-register liquid-register">
+              <input
+                  className="auth-input-register liquid-register"
+                  type="text"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  aria-label="Last Name"
+              />
+            </div>
+
+            <div className="form-group-register liquid-register">
+              <input
+                  className="auth-input-register liquid-register"
+                  type="text"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  aria-label="Username"
+              />
+            </div>
+
+            <div className="form-group-register liquid-register">
+              <input
+                  className="auth-input-register liquid-register"
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  aria-label="Email"
+              />
+            </div>
+
+            <div className="form-group-register liquid-register">
+              <input
+                  className="auth-input-register liquid-register"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  aria-label="Password"
+              />
+            </div>
+
+            <div className="button-row-register liquid-register">
+              <button
+                  className="auth-button-register liquid-register"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  aria-busy={loading}
+              >
+                {loading ? "Loading..." : "Create Account"}
+              </button>
+            </div>
+          </div>
+
+          {error && (
+              <p className="error-register liquid-register" role="alert">
+                {error}
+              </p>
+          )}
+          {success && (
+              <p className="success-register liquid-register" role="status">
+                {success}
+              </p>
+          )}
+          <div className="button-row-register liquid-register" style={{ marginTop: 12 }}>
+            <p className="register-link-register liquid-register">
+              Schon ein Konto? <Link to="/login">Jetzt anmelden</Link>
+            </p>
+          </div>
+        </div>
       </div>
-      {error && <p className="error">{error}</p>}
-      {success && <p className="success">{success}</p>}
-    </div>
   );
 }
 

@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("cf571920-73f9-4ccc-95f3-d0697bab9102")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ScrumifyApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c27a53a8c9bdbda0c4bd6906c7b2357297c9020")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3da2d5969926c09587cad4348e4633a225323584")]
 [assembly: System.Reflection.AssemblyProductAttribute("ScrumifyApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ScrumifyApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
