@@ -9,6 +9,10 @@
 
   <ItemGroup>
     <!-- Update EF Core to version 10 to match your PostgreSQL package -->
+<<<<<<< HEAD
+=======
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.2" />
+>>>>>>> 97cb5ad66a7f6ba2e7918f2bfb6001248a350947
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
