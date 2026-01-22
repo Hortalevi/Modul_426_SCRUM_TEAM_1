@@ -3,10 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScrumifyApi.Models
 {
-    /// <summary>
-    /// Represents a Project entity that belongs to a Team
-    /// </summary>
-    public class Project
+    public class Team
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,18 +13,11 @@ namespace ScrumifyApi.Models
         [MaxLength(200)]
         public string Name { get; set; } = string.Empty;
 
-        [MaxLength(1000)]
+        [MaxLength(500)]
         public string? Description { get; set; }
 
-        [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        // Foreign key
-        [Required]
-        public int TeamId { get; set; }
-
-        // Navigation property
-        [ForeignKey("TeamId")]
-        public virtual ScrumGroup Team { get; set; } = null!;
+        public virtual ICollection<Project> Projects { get; set; } = new List<Project>();
     }
 }
